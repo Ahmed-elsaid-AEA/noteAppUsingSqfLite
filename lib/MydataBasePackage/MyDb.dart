@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:note_app_using_sqflite/helpers/Constants.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -18,7 +19,7 @@ class MyDb {
     String dataBasepath = await getDatabasesPath();
     String path = join(dataBasepath, kNoteDbName);
     Database db = await openDatabase(path,
-        onCreate: _onCreate, onUpgrade: _onUpgrade, version: 1);
+        onCreate: _onCreate, onUpgrade: _onUpgrade, version: 2);
     return db;
   }
 
@@ -32,7 +33,13 @@ class MyDb {
     ''');
   }
 
-  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {}
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    await db.execute(
+        'ALTER TABLE $kTableNotes ADD COLUMN $kTitleNoteCoulumn TEXT  ');
+    await db.execute(
+        'ALTER TABLE $kTableNotes ADD COLUMN $kColorNoteCoulumn TEXT   ');
+    debugPrint('onupgrade');
+  }
 
   Future<int> insertData(String sql) async {
     Database? myDb = await db;
