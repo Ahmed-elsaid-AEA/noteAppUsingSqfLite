@@ -42,9 +42,14 @@ class _HomePageState extends State<HomePage> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
-                        child: ListTile(
-                      title: Text(snapshot.data![index]['$kTextNoteCoulumn']),
-                    ));
+                      child: ListTile(
+                        title:
+                            Text(snapshot.data![index]['$kTitleNoteCoulumn']),
+                        subtitle: Text(snapshot.data![index]['$kTextNoteCoulumn']),
+                        trailing:
+                        Text(snapshot.data![index]['$kColorNoteCoulumn']) ,
+                      ),
+                    );
                   },
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,

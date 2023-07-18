@@ -19,16 +19,18 @@ class MyDb {
     String dataBasepath = await getDatabasesPath();
     String path = join(dataBasepath, kNoteDbName);
     Database db = await openDatabase(path,
-        onCreate: _onCreate, onUpgrade: _onUpgrade, version: 2);
+        onCreate: _onCreate, onUpgrade: _onUpgrade, version: 1);
     return db;
   }
 
   Future<void> _onCreate(Database db, int version) async {
 //create tables
-    await db.execute('''
+    await db.execute(''' 
     CREATE TABLE $kTableNotes (
     $kIdNoteCoulumn INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    $kTextNoteCoulumn TEXT NOTE NULL
+    $kTitleNoteCoulumn TEXT,
+    $kTextNoteCoulumn TEXT NOTE NULL,
+    $kColorNoteCoulumn TEXT
     );
     ''');
   }
