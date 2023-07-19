@@ -35,6 +35,7 @@ class MyDb {
     ''');
   }
 
+
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     await db.execute(
         'ALTER TABLE $kTableNotes ADD COLUMN $kTitleNoteCoulumn TEXT  ');

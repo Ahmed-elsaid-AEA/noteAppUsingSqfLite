@@ -45,9 +45,23 @@ class _HomePageState extends State<HomePage> {
                       child: ListTile(
                         title:
                             Text(snapshot.data![index]['$kTitleNoteCoulumn']),
-                        subtitle: Text(snapshot.data![index]['$kTextNoteCoulumn']),
-                        trailing:
-                        Text(snapshot.data![index]['$kColorNoteCoulumn']) ,
+                        subtitle:
+                            Text(snapshot.data![index]['$kTextNoteCoulumn']),
+                        trailing: IconButton(
+                            onPressed: () async {
+                              int delted = await db.deleteData(
+                                  'delete from $kTableNotes where $kIdNoteCoulumn=${snapshot.data![index]['$kIdNoteCoulumn']}');
+                              if (delted > 0) {
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => HomePage()),
+                                    (route) => false);
+                              }
+                            },
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            )),
                       ),
                     );
                   },
